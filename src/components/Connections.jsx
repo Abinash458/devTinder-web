@@ -33,7 +33,12 @@ const Connections = () => {
           Connections
         </li>
         {connections?.map((item) => (
-          <ListItems key={item._id} item={item?.fromUserId} type="request" />
+          <ListItems
+            key={item._id}
+            item={item}
+            type="connections"
+            _id={item._id}
+          />
         ))}
       </ul>
     </div>

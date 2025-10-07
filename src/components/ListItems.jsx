@@ -1,4 +1,4 @@
-const ListItems = ({ item, type = "request" }) => {
+const ListItems = ({ item, type = "request", reviewRequest, _id }) => {
   const { firstName, lastName, photoUrl, about, age, gender } = item;
   return (
     <>
@@ -21,11 +21,23 @@ const ListItems = ({ item, type = "request" }) => {
         </div>
         {type === "request" ? (
           <>
-            <button className="btn btn-secondary">Accept</button>
-            <button className="btn btn-primary">Reject</button>
+            <button
+              className="btn btn-secondary"
+              onClick={() => reviewRequest("rejected", _id)}
+            >
+              Reject
+            </button>
+            <button
+              className="btn btn-primary"
+              onClick={() => reviewRequest("accepted", _id)}
+            >
+              Accept
+            </button>
           </>
         ) : (
-          <button className="btn btn-secondary">Remove</button>
+          <button className="btn btn-secondary" disabled>
+            Remove
+          </button>
         )}
       </li>
     </>
