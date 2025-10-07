@@ -113,8 +113,8 @@ const Login = () => {
             </div>
           </div>
           {error && <p className="text-red-500">{error}</p>}
-          <div className="card-actions justify-center m-2">
-            <button onClick={handleLogin} className="btn btn-primary">
+          <div className="card-actions justify-center">
+            <button onClick={handleLogin} className="btn btn-primary w-full">
               Login
             </button>
           </div>

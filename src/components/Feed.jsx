@@ -27,8 +27,6 @@ const Feed = () => {
     getFeed();
   }, []);
 
-  console.log(feed);
-
   return (
     feed && (
       <div className="flex justify-center items-center my-20">
