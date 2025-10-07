@@ -9,12 +9,12 @@ import SuccessAlert from "./SuccessAlert";
 const EditProfile = ({ userData }) => {
   const dispatch = useDispatch();
 
-  const [firstName, setFirstName] = useState(userData?.firstName);
-  const [lastName, setLastName] = useState(userData?.lastName);
-  const [photoUrl, setPhotoUrl] = useState(userData?.photoUrl);
-  const [age, setAge] = useState(userData?.age);
-  const [gender, setGender] = useState(userData?.gender);
-  const [about, setAbout] = useState(userData?.about);
+  const [firstName, setFirstName] = useState(userData?.firstName || "");
+  const [lastName, setLastName] = useState(userData?.lastName || "");
+  const [photoUrl, setPhotoUrl] = useState(userData?.photoUrl || "");
+  const [age, setAge] = useState(userData?.age || "");
+  const [gender, setGender] = useState(userData?.gender || "");
+  const [about, setAbout] = useState(userData?.about || "");
   const [error, setError] = useState(null);
   const [toastMessage, setToastMessage] = useState(null);
 
@@ -102,11 +102,10 @@ const EditProfile = ({ userData }) => {
             <div className="my-4">
               <select
                 value={gender}
-                defaultValue="Select a gender"
                 className="select w-full"
                 onChange={(e) => setGender(e.target.value)}
               >
-                <option value="Select a gender" disabled={true}>
+                <option value="" disabled={true}>
                   Select a gender
                 </option>
                 <option value="male">Male</option>

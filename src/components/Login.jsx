@@ -9,7 +9,10 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [emailId, setEmailId] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoginForm, setIsLoginForm] = useState(true);
   const [error, setError] = useState("");
 
   const handleLogin = async () => {
@@ -31,13 +34,73 @@ const Login = () => {
     }
   };
 
+  const handleSignUp = async () => {
+    try {
+      const res = await axios.post(
+        BASE_URL + "/signup",
+        { firstName, lastName, emailId, password },
+        { withCredentials: true }
+      );
+      dispatch(addUser(res.data.data));
+      navigate("/profile");
+    } catch (error) {
+      setError(error?.response?.data?.message || "Something went wrong!");
+    }
+  };
+
   return (
     <div className="flex justify-center my-20">
       <div className="card card-border bg-base-300 w-96">
         <div className="card-body">
-          <h2 className="card-title justify-center">Login</h2>
+          <h2 className="card-title justify-center">
+            {isLoginForm ? "Login" : "SignUp"}
+          </h2>
           <div className="my-4">
-            <div className="mb-2">
+            {!isLoginForm && (
+              <>
+                <div>
+                  <legend className="fieldset-legend">First Name</legend>
+                  <label className="input validator w-full">
+                    <input
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      type="text"
+                      pattern="[A-Za-z]*"
+                      minLength="3"
+                      maxLength="30"
+                      placeholder="First Name"
+                      required
+                    />
+                  </label>
+                  <div className="validator-hint hidden">
+                    Must be 3 to 30 characters
+                    <br />
+                    containing only letters
+                  </div>
+                </div>
+                <div>
+                  <legend className="fieldset-legend">Last Name</legend>
+                  <label className="input validator w-full">
+                    <input
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      type="text"
+                      pattern="[A-Za-z]*"
+                      minLength="3"
+                      maxLength="30"
+                      placeholder="Last Name"
+                      required
+                    />
+                  </label>
+                  <div className="validator-hint hidden">
+                    Must be 3 to 30 characters
+                    <br />
+                    containing only letters
+                  </div>
+                </div>
+              </>
+            )}
+            <div>
               <legend className="fieldset-legend">Email ID</legend>
               <label className="input validator w-full">
                 <svg
@@ -114,10 +177,21 @@ const Login = () => {
           </div>
           {error && <p className="text-red-500">{error}</p>}
           <div className="card-actions justify-center">
-            <button onClick={handleLogin} className="btn btn-primary w-full">
-              Login
+            <button
+              onClick={isLoginForm ? handleLogin : handleSignUp}
+              className="btn btn-primary w-full"
+            >
+              {isLoginForm ? "Login" : "SignUp"}
             </button>
           </div>
+          <p
+            className="mt-3 cursor-pointer text-center"
+            onClick={() => setIsLoginForm((value) => !value)}
+          >
+            {isLoginForm
+              ? "New User? SingUp Here"
+              : "Existing User? Login Here"}
+          </p>
         </div>
       </div>
     </div>
