@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const ListItems = ({ item, type = "request", reviewRequest, _id }) => {
   const { firstName, lastName, photoUrl, about, age, gender } = item;
   return (
@@ -35,9 +37,9 @@ const ListItems = ({ item, type = "request", reviewRequest, _id }) => {
             </button>
           </>
         ) : (
-          <button className="btn btn-secondary" disabled>
-            Remove
-          </button>
+          <Link to={"/chat/" + _id}>
+            <button className="btn btn-secondary">Message</button>
+          </Link>
         )}
       </li>
     </>
